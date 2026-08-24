@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApplicationMVC.Models.Book>
+
+@{
+    ViewData["Title"] = "Библиотека";
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-1">Домашняя библиотека</h1>
+            <p class="text-muted mb-0">
+                Книг в библиотеке: @Model.Count()
+            </p>
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <a asp-action="XmlSearch"
+               class="btn btn-outline-primary">
+                Поиск по XML
+            </a>
+
+            <a asp-action="Create"
+               class="btn btn-primary">
+                Добавить книгу
+            </a>
+
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">Название</th>
+                        <th>Автор</th>
+                        <th>Год</th>
+                        <th>ISBN</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td class="px-4">
+                                <a asp-action="Details"
+                                   asp-route-id="@book.Id"
+                                   class="fw-semibold text-decoration-none">
+                                    @book.Title
+                                </a>
+                            </td>
+
+                            <td>@book.Author</td>
+
+                            <td>
+                                @(book.YearPublished?.ToString() ?? "—")
+                            </td>
+
+                            <td>
+                                @(book.ISBN ?? "—")
+                            </td>
+
+                            <td class="text-end pe-4">
+                                <a asp-action="Edit"
+                                   asp-route-id="@book.Id"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    Изменить
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@book.Id"
+                                   class="btn btn-sm btn-outline-danger">
+                                    Удалить
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

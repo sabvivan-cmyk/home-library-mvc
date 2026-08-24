@@ -1,0 +1,100 @@
+﻿@model WebApplicationMVC.Models.Book
+
+@{
+    ViewData["Title"] = "Добавление книги";
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h1 class="h3 mb-1">Добавление книги</h1>
+        <p class="text-muted mb-0">
+            Заполните основные данные
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+
+            <form asp-action="Create"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <div class="row g-3">
+
+                    <div class="col-md-8">
+                        <label asp-for="Title" class="form-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="YearPublished"
+                               class="form-label"></label>
+                        <input asp-for="YearPublished"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-8">
+                        <label asp-for="Author"
+                               class="form-label"></label>
+                        <input asp-for="Author"
+                               class="form-control" />
+                        <span asp-validation-for="Author"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="ISBN"
+                               class="form-label"></label>
+                        <input asp-for="ISBN"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Description"
+                               class="form-label"></label>
+
+                        <textarea asp-for="Description"
+                                  class="form-control"
+                                  rows="5"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">
+                            Прикрепите оглавление в виде XML файла
+                        </label>
+
+                        <input type="file"
+                               name="tableOfContentsFile"
+                               class="form-control"
+                               accept=".xml,text/xml" />
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Отмена
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Сохранить
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

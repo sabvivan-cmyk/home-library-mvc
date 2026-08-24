@@ -1,0 +1,112 @@
+﻿@model IEnumerable<WebApplicationMVC.Models.Book>
+
+@{
+    ViewData["Title"] = "Поиск по XML";
+    var searchText = ViewBag.SearchText as string;
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h1 class="h3 mb-1">
+            Поиск по XML
+        </h1>
+
+        <p class="text-muted">
+            Поиск книг по содержимому XML-поля
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+
+            <form asp-action="XmlSearch"
+                  method="get">
+
+                <div class="input-group">
+
+                    <input type="text"
+                           name="searchText"
+                           value="@searchText"
+                           class="form-control"
+                           placeholder="Например, EPGU" />
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Найти
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(searchText))
+    {
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body">
+
+                <h2 class="h5 mb-3">
+                    Результаты
+                </h2>
+
+                @if (Model.Any())
+                {
+                    <table class="table table-hover">
+
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Автор</th>
+                                <th>Год</th>
+                                <th>ISBN</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.Title</td>
+
+                                <td>@book.Author</td>
+
+                                <td>
+                                    @book.YearPublished
+                                </td>
+
+                                <td>
+                                    @book.ISBN
+                                </td>
+
+                                <td>
+                                    <a asp-action="Details"
+                                       asp-route-id="@book.Id">
+                                        Открыть
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                        </tbody>
+
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-light mb-0">
+                        Ничего не найдено
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    }
+
+</div>

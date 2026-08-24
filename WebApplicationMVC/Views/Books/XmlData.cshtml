@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApplicationMVC.Models.XmlValue>
+
+@{
+    var book =
+        ViewBag.Book as WebApplicationMVC.Models.Book;
+}
+
+<h1>Данные из XML</h1>
+
+<p>
+    Книга: <strong>@book?.Title</strong>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>XML элемент</th>
+            <th>Значение</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.NodeName</td>
+            <td>@item.NodeValue</td>
+        </tr>
+    }
+    </tbody>
+</table>
